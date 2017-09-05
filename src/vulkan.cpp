@@ -23,6 +23,9 @@
 #include <array>
 #include <set>
 #include <unordered_map>
+#include <memory>
+
+#include "Window.h"
 
 const int WIDTH = 1920;
 const int HEIGHT = 1080;
@@ -141,7 +144,7 @@ public:
   }
 
 private:
-  GLFWwindow* window;
+  std::unique_ptr<vpg::Window> window;
 
   VkInstance instance;
   VkDebugReportCallbackEXT callback;
@@ -194,34 +197,18 @@ private:
   VkSemaphore imageAvailableSemaphore;
   VkSemaphore renderFinishedSemaphore;
 
-  static void handle_key(GLFWwindow* window, int key, int scancode, int action, int mods) {
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
-      glfwSetWindowShouldClose(window, GLFW_TRUE);
-    }
-  }
+
 
   void initWindow() {
-    GLFWmonitor* mon = nullptr;
-    glfwInit();
-
-    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-
-    if (FULLSCREEN) {
-      mon = glfwGetPrimaryMonitor();
-    }
-
-    window = glfwCreateWindow(WIDTH, HEIGHT, "Vulkan", mon, nullptr);
-
-    glfwSetWindowUserPointer(window, this);
-    glfwSetWindowSizeCallback(window, HelloTriangleApplication::onWindowResized);
-
-    glfwSetKeyCallback(window, handle_key);
+    window = std::make_unique<vpg::Window>(WIDTH, HEIGHT, FULLSCREEN, nullptr);
   }
 
   void initVulkan() {
     createInstance();
     setupDebugCallback();
-    createSurface();
+    
+    window->createSurface(instance, &surface);
+
     pickPhysicalDevice();
     createLogicalDevice();
     createSwapChain();
@@ -246,8 +233,8 @@ private:
   }
 
   void mainLoop() {
-    while (!glfwWindowShouldClose(window)) {
-      glfwPollEvents();
+    while (!window->shouldClose()) {
+      window->pollEvents();
 
       updateUniformBuffer();
       drawFrame();
@@ -309,17 +296,10 @@ private:
     vkDestroySurfaceKHR(instance, surface, nullptr);
     vkDestroyInstance(instance, nullptr);
 
-    glfwDestroyWindow(window);
 
-    glfwTerminate();
   }
 
-  static void onWindowResized(GLFWwindow* window, int width, int height) {
-    if (width == 0 || height == 0) return;
 
-    HelloTriangleApplication* app = reinterpret_cast<HelloTriangleApplication*>(glfwGetWindowUserPointer(window));
-    app->recreateSwapChain();
-  }
 
   void recreateSwapChain() {
     vkDeviceWaitIdle(device);
@@ -382,11 +362,6 @@ private:
     }
   }
 
-  void createSurface() {
-    if (glfwCreateWindowSurface(instance, window, nullptr, &surface) != VK_SUCCESS) {
-      throw std::runtime_error("failed to create window surface!");
-    }
-  }
 
   void pickPhysicalDevice() {
     uint32_t deviceCount = 0;
@@ -1418,7 +1393,7 @@ private:
     }
     else {
       int width, height;
-      glfwGetWindowSize(window, &width, &height);
+      window->getWindowSize(&width, &height);
 
       VkExtent2D actualExtent = {
         static_cast<uint32_t>(width),
