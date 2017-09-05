@@ -34,3 +34,10 @@
 */Release/*
 */Debug/*
 .vs/*
+
+# Visual studio User-specific files
+*.suo
+*.user
+
+# Compiled shaders
+*.spv
