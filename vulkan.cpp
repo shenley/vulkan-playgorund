@@ -24,8 +24,9 @@
 #include <set>
 #include <unordered_map>
 
-const int WIDTH = 800;
-const int HEIGHT = 600;
+const int WIDTH = 1920;
+const int HEIGHT = 1080;
+const bool FULLSCREEN = false;
 
 const std::string MODEL_PATH = "models/chalet.obj";
 const std::string TEXTURE_PATH = "textures/chalet.jpg";
@@ -193,15 +194,28 @@ private:
   VkSemaphore imageAvailableSemaphore;
   VkSemaphore renderFinishedSemaphore;
 
+  static void handle_key(GLFWwindow* window, int key, int scancode, int action, int mods) {
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
+      glfwSetWindowShouldClose(window, GLFW_TRUE);
+    }
+  }
+
   void initWindow() {
+    GLFWmonitor* mon = nullptr;
     glfwInit();
 
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 
-    window = glfwCreateWindow(WIDTH, HEIGHT, "Vulkan", nullptr, nullptr);
+    if (FULLSCREEN) {
+      mon = glfwGetPrimaryMonitor();
+    }
+
+    window = glfwCreateWindow(WIDTH, HEIGHT, "Vulkan", mon, nullptr);
 
     glfwSetWindowUserPointer(window, this);
     glfwSetWindowSizeCallback(window, HelloTriangleApplication::onWindowResized);
+
+    glfwSetKeyCallback(window, handle_key);
   }
 
   void initVulkan() {
