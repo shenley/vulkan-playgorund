@@ -146,14 +146,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="vulkan.cpp" />
+    <ClCompile Include="src\vulkan.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\frag.frag" />
     <None Include="shaders\vert.vert" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="stb_image.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
