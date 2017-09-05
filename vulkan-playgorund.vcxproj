@@ -81,6 +81,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -101,7 +102,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Sean\Documents\dev\lib\VulkanSDK\1.0.57.0\Include;C:\Users\Sean\Documents\dev\lib\glm;C:\Users\Sean\Documents\dev\lib\glfw-3.2.1.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Sean\Documents\dev\lib\tinyobjloader;C:\Users\Sean\Documents\dev\lib\stb;C:\Users\Sean\Documents\dev\lib\VulkanSDK\1.0.57.0\Include;C:\Users\Sean\Documents\dev\lib\glm;C:\Users\Sean\Documents\dev\lib\glfw-3.2.1.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -134,7 +135,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Sean\Documents\dev\lib\VulkanSDK\1.0.57.0\Include;C:\Users\Sean\Documents\dev\lib\glm;C:\Users\Sean\Documents\dev\lib\glfw-3.2.1.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Sean\Documents\dev\lib\tinyobjloader;C:\Users\Sean\Documents\dev\lib\stb;C:\Users\Sean\Documents\dev\lib\VulkanSDK\1.0.57.0\Include;C:\Users\Sean\Documents\dev\lib\glm;C:\Users\Sean\Documents\dev\lib\glfw-3.2.1.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -150,6 +151,9 @@
   <ItemGroup>
     <None Include="shaders\frag.frag" />
     <None Include="shaders\vert.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stb_image.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
