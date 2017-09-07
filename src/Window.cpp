@@ -20,7 +20,7 @@ namespace vpg {
 
   Window::Window(int width, int height, bool fullscreen, resize_handler_fn resizeCallback) {
     GLFWmonitor* mon = nullptr;
-    glfwInit();
+
 
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 
@@ -39,8 +39,6 @@ namespace vpg {
   Window::~Window()
   {
     glfwDestroyWindow(window);
-
-    glfwTerminate();
   }
 
   bool Window::shouldClose() {
@@ -51,7 +49,7 @@ namespace vpg {
     glfwPollEvents();
   }
 
-  void Window::createSurface(VkInstance instance, VkSurfaceKHR* surface) {
+  void Window::createSurface(VkInstance& instance, VkSurfaceKHR* surface) {
     if (glfwCreateWindowSurface(instance, window, nullptr, surface) != VK_SUCCESS) {
       throw std::runtime_error("failed to create window surface!");
     }
@@ -60,5 +58,11 @@ namespace vpg {
   void Window::getWindowSize(int* width, int* height) {
     glfwGetWindowSize(window, width, height);
   }
+
+
 }
 
+
+
+// TODO
+// surface creation outside

@@ -21,9 +21,11 @@ namespace vpg {
 
     bool shouldClose();
     void pollEvents();
-    void createSurface(VkInstance instance, VkSurfaceKHR* surface);
+    void createSurface(VkInstance& instance, VkSurfaceKHR* surface);
 
     void getWindowSize(int* width, int* height);
+
+    GLFWwindow* getWindow() { return window; }
   };
 
 }

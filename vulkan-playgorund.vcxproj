@@ -103,6 +103,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>C:\Users\Sean\Documents\dev\lib\tinyobjloader;C:\Users\Sean\Documents\dev\lib\stb;C:\Users\Sean\Documents\dev\lib\VulkanSDK\1.0.57.0\Include;C:\Users\Sean\Documents\dev\lib\glm;C:\Users\Sean\Documents\dev\lib\glfw-3.2.1.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -146,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Renderer.cpp" />
     <ClCompile Include="src\vulkan.cpp" />
     <ClCompile Include="src\Window.cpp" />
   </ItemGroup>
@@ -154,6 +156,7 @@
     <None Include="shaders\vert.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Renderer.h" />
     <ClInclude Include="src\Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
